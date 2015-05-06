@@ -1,0 +1,19 @@
+Android Bootcamp Daily Summary
+
+May 5, 2015
+1. Intent Service
+2. App Architecture
+3. Threads
+4. Async Task
+5. Notifications
+6. Retrieve timeline.
+
+May 4, 2015
+1. Android Overview
+2. History of Android
+3. Android Stack
+4. Hello World - Environment Setup
+5. App Architecture
+6. Yamba - Status Activity
+7. Emulator etc.
+
