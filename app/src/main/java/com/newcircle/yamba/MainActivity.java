@@ -53,5 +53,8 @@ public class MainActivity extends AppCompatActivity implements TimelineFragment.
     @Override
     public void onTimelineItemSelected(long id) {
         Toast.makeText(this, " Click " + id, Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, DetailsActivity.class);
+        intent.putExtra(StatusContract.Column.ID, id);
+        startActivity(intent);
     }
 }
