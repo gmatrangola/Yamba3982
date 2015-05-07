@@ -1,18 +1,28 @@
 package com.newcircle.yamba;
 
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.content.Loader;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final int LOADER_ID = 999;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate -- initLoader");
         setContentView(R.layout.activity_main);
+        getSupportLoaderManager().initLoader(LOADER_ID, null, this);
     }
 
 
@@ -43,5 +53,22 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        Log.d(TAG, "onCreateLoader - pass in the CONTENT_URI");
+        return new CursorLoader(this, StatusContract.CONTENT_URI, null, null, null,
+                StatusContract.DEFAULT_SORT);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        Log.d(TAG, "onLoadFinished " + data.getCount());
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 }

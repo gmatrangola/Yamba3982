@@ -68,7 +68,7 @@ public class StatusProvider extends ContentProvider {
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
-
+        Log.d(TAG, "query");
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         qb.setTables( StatusContract.TABLE);
 

@@ -1,5 +1,12 @@
 Android Bootcamp Daily Summary
 
+May 6, 2015
+1. Built Content Provider
+2. Database SQlite Database helper
+3. Contract
+4. Main activity - cleanup
+5. Loader
+
 May 5, 2015
 1. Intent Service
 2. App Architecture
