@@ -5,8 +5,11 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.thenewcircle.yamba.client.YambaClient;
@@ -32,12 +35,25 @@ public class StatusUpdateService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Log.d(TAG, "onHandleIntent " + intent);
+        Log.d(TAG, "onHandleIntent AAAAA " + intent);
         final String status = intent.getStringExtra(EXTRA_MESSAGE);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        final String username = prefs.getString("username", getResources().getString(R.string.defaultStudent));
+        final String password = prefs.getString("password", "");
+
+        // NEVER DO THIS!!!!
+        Log.d(TAG, "username = " + " password = " + password);
+
+        if(TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
+            Log.w(TAG, "no username or password");
+            return;
+        }
 
         postProgressNotification(status);
 
-        final YambaClient yambaClient = new YambaClient("student", "password");
+        final YambaClient yambaClient = new YambaClient(username, password);
         try {
             Thread.sleep(5000);
             yambaClient.postStatus(status);

@@ -70,6 +70,10 @@ public class DetailsFragment extends Fragment {
         mTextCreatedAt.setText(DateUtils.getRelativeTimeSpanString(createdAt));
     }
 
+    public void clearView() {
+        mTextUser.setText("");
+    }
+
     @Override
     public void onResume() {
         super.onResume();
