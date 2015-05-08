@@ -15,13 +15,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
-public class StatusActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher {
+public class StatusActivity extends AppCompatActivity implements TextWatcher {
 
     private static final String TAG = StatusActivity.class.getSimpleName();
-    private Button mButton;
     private EditText mStatusText;
     private TextView mTextCount;
     private int mDefaultColor;
+    private MenuItem mPostMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +32,7 @@ public class StatusActivity extends AppCompatActivity implements View.OnClickLis
 
 
         setContentView(R.layout.activity_status);
-        mButton = (Button) findViewById(R.id.status_button);
         mStatusText = (EditText) findViewById(R.id.status_text);
-        mButton.setOnClickListener(this);
         mStatusText.addTextChangedListener(this);
         mTextCount = (TextView) findViewById(R.id.status_text_count);
 
@@ -64,17 +62,6 @@ public class StatusActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void onClick(View v) {
-        String status = mStatusText.getText().toString();
-        Intent intent = new Intent(this, StatusUpdateService.class);
-        intent.putExtra(StatusUpdateService.EXTRA_MESSAGE, status);
-
-        startService(intent);
-        mStatusText.getText().clear();
-        finish();
-    }
-
-    @Override
     public void afterTextChanged(Editable s) {
         int count = 140 - s.length();
         mTextCount.setText(Integer.toString(count));
@@ -84,7 +71,7 @@ public class StatusActivity extends AppCompatActivity implements View.OnClickLis
         else {
             mTextCount.setTextColor(mDefaultColor);
         }
-        mButton.setEnabled(count >= 0);
+        mPostMenuItem.setEnabled(count >= 0);
     }
 
     @Override
@@ -100,7 +87,9 @@ public class StatusActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_yamba, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        mPostMenuItem = menu.findItem(R.id.action_post);
         return true;
     }
 
@@ -112,7 +101,14 @@ public class StatusActivity extends AppCompatActivity implements View.OnClickLis
         int id = item.getItemId();
 
         switch(id) {
-            case R.id.action_settings:
+            case R.id.action_post:
+                String status = mStatusText.getText().toString();
+                Intent intent = new Intent(this, StatusUpdateService.class);
+                intent.putExtra(StatusUpdateService.EXTRA_MESSAGE, status);
+
+                startService(intent);
+                mStatusText.getText().clear();
+                finish();
                 return true;
             case R.id.action_refresh:
                 startService(new Intent(this, RefreshService.class));

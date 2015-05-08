@@ -45,7 +45,7 @@ public class StatusActivityTest extends ActivityInstrumentationTestCase2<StatusA
         onView(withId(R.id.status_text)).perform(typeText(testString));
         onView(withId(R.id.status_text_count)).check(matches(withText(String.valueOf("0"))));
 
-        onView(withId(R.id.status_button)).check(matches(isEnabled()));
+        onView(withId(R.id.action_post)).check(matches(isEnabled()));
     }
 
     public void testCounterOverflow() {
@@ -54,10 +54,10 @@ public class StatusActivityTest extends ActivityInstrumentationTestCase2<StatusA
                 + " without extra chars? I worked really hard xxxxxxxxxx";
 
         onView(withId(R.id.status_text)).perform(typeText(testString));
-        onView(withId(R.id.status_button)).check(matches(not(isEnabled())));
+        onView(withId(R.id.action_post)).check(matches(not(isEnabled())));
 
         onView(withId(R.id.status_text)).perform(clearText());
 
-        onView(withId(R.id.status_button)).check(matches(isEnabled()));
+        onView(withId(R.id.action_post)).check(matches(isEnabled()));
     }
 }

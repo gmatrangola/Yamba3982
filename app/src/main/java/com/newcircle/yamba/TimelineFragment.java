@@ -1,6 +1,7 @@
 package com.newcircle.yamba;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -65,6 +66,12 @@ public class TimelineFragment extends ListFragment
             throw new IllegalArgumentException(activity.getClass().getSimpleName() +
                     " must implement" + OnTimelineItemSelectedListener.class.getSimpleName());
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().startService(new Intent(getActivity(), RefreshService.class));
     }
 
     @Override
