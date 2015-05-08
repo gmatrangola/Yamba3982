@@ -11,4 +11,13 @@
         android:summary="@string/password_summary"
         android:title="@string/password"
         android:inputType="textPassword" />
+
+    <ListPreference
+        android:key="interval"
+        android:title="Refresh Interval"
+        android:summary="How frequently should data refresh?"
+        android:entries="@array/interval_names"
+        android:entryValues="@array/interval_values"
+        android:defaultValue="0"/>
+
 </PreferenceScreen>

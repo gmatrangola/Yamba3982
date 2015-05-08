@@ -1,5 +1,13 @@
 Android Bootcamp Daily Summary
 
+May 7, 2015
+1. List in Activity
+2. Cursor Adapter
+3. Hooked Adapter to the Loader
+4. Fragments
+5. Landscape Layout
+6. Preferences
+
 May 6, 2015
 1. Built Content Provider
 2. Database SQlite Database helper
