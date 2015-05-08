@@ -18,6 +18,7 @@ public class YambaApp extends Application implements SharedPreferences.OnSharedP
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.d(TAG, "onCreate");
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         updateInterval(prefs);
